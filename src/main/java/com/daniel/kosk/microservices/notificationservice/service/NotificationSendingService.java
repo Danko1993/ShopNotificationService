@@ -16,10 +16,19 @@ public class NotificationSendingService {
     public void sendActivationLink(String to, String link) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setFrom("kosekkafkashop@gmail.com");
+        helper.setFrom("kosekshop@gmail.com");
         helper.setTo(to);
         helper.setSubject("Account Activation");
         helper.setText(link + "< < Click here to activate Your account");
+        mailSender.send(message);
+    }
+    public void sendUpdateConfirmation(String to, String dataName,String oldValue,String newValue) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setFrom("kosekshop@gmail.com");
+        helper.setTo(to);
+        helper.setSubject("Your " + dataName + " has been updated}");
+        helper.setText("Your " + dataName + " has been updated form: "+ oldValue +" to: " + newValue+".", true);
         mailSender.send(message);
     }
 }
